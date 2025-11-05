@@ -1,17 +1,36 @@
-def reverse_array_in_place(arr):
-    start = 0
-    end = len(arr) - 1
+#include <stdio.h>
 
-    while start < end:
-        # Swap elements at start and end pointers
-        arr[start], arr[end] = arr[end], arr[start]
+void reverseArray(int arr[], int size) {
+    int left = 0;
+    int right = size - 1;
 
-        # Move pointers towards the center
-        start += 1
-        end -= 1
-    return arr
+    // Swap elements using two pointers
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        left++;
+        right--;
+    }
+}
 
-# Example usage:
-my_array = [1, 2, 3, 4, 5]
-reversed_array = reverse_array_in_place(my_array)
-print(f"Reversed array: {reversed_array}") # Output: Reversed array: [5, 4, 3, 2, 1]
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    reverseArray(arr, size);
+
+    printf("Reversed array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
