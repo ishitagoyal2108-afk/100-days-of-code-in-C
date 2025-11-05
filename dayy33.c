@@ -1,20 +1,62 @@
-def insert_into_sorted_array(arr, element):
-    # Find the insertion point
-    insertion_index = 0
-    while insertion_index < len(arr) and arr[insertion_index] < element:
-        insertion_index += 1
+#include <stdio.h>
 
-    # Shift elements to the right
-    arr.append(None)  # Extend the array to make space for the new element
-    for i in range(len(arr) - 1, insertion_index, -1):
-        arr[i] = arr[i - 1]
+// Function to insert an element into a sorted array
+void insertSorted(int arr[], int *n, int value, int capacity) {
+    if (*n >= capacity) {
+        printf("Error: Array is full. Cannot insert more elements.\n");
+        return;
+    }
 
-    # Insert the element
-    arr[insertion_index] = element
-    return arr
+    int i = *n - 1;
 
-# Example usage:
-my_array = [1, 3, 5, 7, 9]
-new_element = 4
-updated_array = insert_into_sorted_array(my_array, new_element)
-print(updated_array)
+    // Find the position to insert and shift elements
+    while (i >= 0 && arr[i] > value) {
+        arr[i + 1] = arr[i];
+        i--;
+    }
+
+    // Insert the value
+    arr[i + 1] = value;
+    (*n)++; // Increment the size of the array
+}
+
+int main() {
+    int arr[10] = {10, 20, 30, 40, 50}; // Initial sorted array
+    int n = 5; // Current number of elements
+    int capacity = 10; // Maximum capacity of the array
+
+    printf("Original array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    int valueToInsert = 25;
+    insertSorted(arr, &n, valueToInsert, capacity);
+
+    printf("Array after inserting %d: ", valueToInsert);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    valueToInsert = 5;
+    insertSorted(arr, &n, valueToInsert, capacity);
+
+    printf("Array after inserting %d: ", valueToInsert);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    valueToInsert = 60;
+    insertSorted(arr, &n, valueToInsert, capacity);
+
+    printf("Array after inserting %d: ", valueToInsert);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
